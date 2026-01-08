@@ -9,6 +9,7 @@ git clone https://github.com/raspberrypi/pico-sdk
 cd pico-sdk
 git checkout tags/2.1.1
 git submodule update --init
+curl -o src/boards/include/boards/nologo_rp2350_usb.h https://raw.githubusercontent.com/Disappear9/pico-hsm/refs/heads/master/workflows/nologo_rp2350_usb.h
 cd ..
 git clone https://github.com/raspberrypi/picotool
 cd picotool

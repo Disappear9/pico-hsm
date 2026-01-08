@@ -1,8 +1,6 @@
 name: "Nightly deploy"
 
 on:
-  schedule:
-    - cron: '0 2 * * *'
   workflow_dispatch:
 
 jobs:
@@ -11,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        refs: [master, development]
+        refs: [master]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -33,10 +31,7 @@ jobs:
            ./workflows/autobuild.sh esp32
       - name: Delete private key
         run: rm private.pem
-      - name: Update nightly release
-        uses: pyTooling/Actions/releaser@v6.7.0
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v6
         with:
-          tag: nightly-${{ matrix.refs }}
-          rm: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: release/*.*
+          path: release/*.*
